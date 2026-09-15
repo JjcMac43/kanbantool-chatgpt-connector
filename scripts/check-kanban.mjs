@@ -20,6 +20,18 @@ try {
       console.error(`STRUCTURE_CHECK_FAILED board=${board.id} ${e.message}`);
     }
   }
+
+  if (process.env.KANBAN_DEFAULT_BOARD_ID && process.env.KANBAN_DESIGN_STAGE_NAME) {
+    const design = await client.listTasks({
+      board: process.env.KANBAN_DEFAULT_BOARD_ID,
+      stage: process.env.KANBAN_DESIGN_STAGE_NAME,
+      includeChildStages: true
+    });
+    console.log(`DESIGN_QUEUE board=${design.board.id} count=${design.count}`);
+    for (const task of design.tasks) {
+      console.log(`DESIGN_TASK id=${task.id} name=${JSON.stringify(task.name)} assignee=${JSON.stringify(task.assignee)} due_date=${JSON.stringify(task.due_date)} position=${JSON.stringify(task.position)}`);
+    }
+  }
 } catch (e) {
   console.error('KANBAN_CHECK_FAILED', e?.message || String(e));
   process.exit(1);
