@@ -1,0 +1,21 @@
+{
+  "name": "signarama-kanbantool-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Remote MCP connector for controlling a KanbanTool board from ChatGPT.",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check lib/kanban.mjs && node --check scripts/test-kanban.mjs",
+    "test:kanban": "node scripts/test-kanban.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/node": "latest",
+    "@modelcontextprotocol/server": "latest",
+    "dotenv": "latest",
+    "zod": "latest"
+  }
+}
